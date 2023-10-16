@@ -19,9 +19,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->string('brand')->nullable();
             $table->integer('volume')->nullable();
-            $table->foreignId('category_id')
-                ->references('id')
-                ->on('categories');
+            $table->foreignId('category_id')->references('id')->on('categories');
             $table->timestamps();
         });
     }

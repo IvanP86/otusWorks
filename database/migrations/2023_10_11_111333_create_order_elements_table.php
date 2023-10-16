@@ -13,12 +13,9 @@ return new class extends Migration
     {
         Schema::create('order_elements', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('order_id')
-                ->references('id')
-                ->on('orders');
-            $table->foreignId('element_id')
-                ->references('id')
-                ->on('elements');
+            $table->foreignId('order_id')->references('id')->on('orders');
+            $table->foreignId('element_id')->references('id')->on('elements');
+            $table->decimal('price_element', 8, 2);
             $table->timestamps();
         });
     }

@@ -27,3 +27,27 @@ Route::get('/static', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/role/{role}', function (\App\Models\Role $role) {
+    $users = $role->users;
+    dump($users);
+    return "ok";
+});
+
+Route::get('/users/{user}', function (\App\Models\User $user) {
+    $orders = $user->orders;
+    dump($orders);
+    return "ok";
+});
+
+Route::get('/orders/{order}', function (\App\Models\Order $order) {
+    $elements = $order->elements;
+    dump($elements);
+    return "ok";
+});
+
+Route::get('/elements/{element}', function (\App\Models\Element $element) {
+    $orders = $element->orders;
+    dump($orders);
+    return "ok";
+});
