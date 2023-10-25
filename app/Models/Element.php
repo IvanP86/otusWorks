@@ -10,6 +10,7 @@ use App\Models\Order;
 class Element extends Model
 {
     use HasFactory;
+    protected $guarded = false;
 
     public function category()
     {

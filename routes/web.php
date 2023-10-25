@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ElementController;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,4 +52,25 @@ Route::get('/elements/{element}', function (\App\Models\Element $element) {
     $orders = $element->orders;
     dump($orders);
     return "ok";
+});
+
+Route::prefix('admin')->group(function () {
+    Route::resource('categories', CategoryController::class)->names([
+    'index' => 'category.index',
+    'create' => 'category.create',
+    'show' => 'category.show',
+    'edit' => 'category.edit',
+    'destroy' => 'category.delete',
+    'store' => 'category.store',
+    'update' => 'category.update'
+    ]);
+    Route::resource('elements', ElementController::class)->names([
+        'index' => 'element.index',
+        'create' => 'element.create',
+        'show' => 'element.show',
+        'edit' => 'element.edit',
+        'destroy' => 'element.delete',
+        'store' => 'element.store',
+        'update' => 'element.update'
+        ]);
 });

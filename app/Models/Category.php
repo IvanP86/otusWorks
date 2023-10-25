@@ -9,9 +9,10 @@ use App\Models\Element;
 class Category extends Model
 {
     use HasFactory;
+    protected $guarded = false;
 
-    function elements()
+    public function elements()
     {
-        return $this->hasMany(Element::class, 'element_id');        
+        return $this->hasMany(Element::class, 'element_id');
     }
 }
