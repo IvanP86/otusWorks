@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Category;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,12 +19,12 @@ class ElementFactory extends Factory
     {
         return [
             'title' => fake()->sentence,
-            'price' => fake()->numberBetween($min = 1500, $max = 10000),
-            'article' => fake()->numberBetween($min = 1, $max = 100000),
+            'price' => fake()->numberBetween(1500, 10000),
+            'article' => fake()->numberBetween(1, 100000),
             'description' => fake()->paragraph(),
             'brand' => fake()->word,
             'volume' => fake()->randomDigit,
-            'category_id' => \App\Models\Category::all()->random()->id,
+            'category_id' => Category::query()->inRandomOrder()->first()->id,
         ];
     }
 }

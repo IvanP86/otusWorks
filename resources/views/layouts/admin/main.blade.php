@@ -27,15 +27,11 @@
       </div>
 
       <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-        <li><a href="/" class="nav-link px-2">Главная</a></li>
-        @can('anyManagerAndAdmin', auth()->user())
-        <li><a href="{{ route('element.index') }}" class="nav-link px-2">Админка</a></li>
-        @endcan
-        @auth
-          <li><a href="/profile" class="nav-link px-2">Профиль</a></li>
-        @endauth
-        <li><a href="/static" class="nav-link px-2">Страница</a></li>
-        @guest
+        <li><a href="/" class="nav-link px-2 link-secondary">Главная</a></li>
+        <li><a href="{{ route('element.index') }}" class="nav-link px-2">Товары</a></li>
+        <li><a href="{{ route('category.index') }}" class="nav-link px-2">Категории</a></li>
+        <li><a href="{{ route('user.index') }}" class="nav-link px-2">Пользователи</a></li>
+    @guest
         
     @else
         <li class="nav-item dropdown">

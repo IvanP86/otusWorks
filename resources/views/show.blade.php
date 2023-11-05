@@ -4,10 +4,10 @@
       <div class="container-fluid">
         <!-- Small boxes (Stat box) -->
         <div class="row">
-          <div class="col-6">
+          <div class="col-12">
             Товар
             <div class="card-body table-responsive p-0">
-                <table class="table table-hover text-nowrap">
+                <table class="table table-hover">
                   <tbody>
                     <tr>
                       <td>ID</td>
@@ -39,6 +39,7 @@
                     </tr>                                                             
                   </tbody>
                 </table>
+                <td><a type="button" href="#" class="btn btn-primary">В корзину</a></td>
               </div>    
           </div>
         

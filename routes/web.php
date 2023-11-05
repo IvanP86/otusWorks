@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ElementController;
@@ -15,9 +16,8 @@ use App\Http\Controllers\ElementController;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
+Route::get('/', 'App\Http\Controllers\IndexElementsController')->name('index');
+Route::get('/elements/{element}', 'App\Http\Controllers\ShowElementsController')->name('show');
 
 Route::get('/profile', function () {
     return view('profile');
@@ -48,21 +48,21 @@ Route::get('/orders/{order}', function (\App\Models\Order $order) {
     return "ok";
 });
 
-Route::get('/elements/{element}', function (\App\Models\Element $element) {
-    $orders = $element->orders;
-    dump($orders);
-    return "ok";
-});
+// Route::get('/elements/{element}', function (\App\Models\Element $element) {
+//     $orders = $element->orders;
+//     dump($orders);
+//     return "ok";
+// });
 
 Route::prefix('admin')->group(function () {
     Route::resource('categories', CategoryController::class)->names([
-    'index' => 'category.index',
-    'create' => 'category.create',
-    'show' => 'category.show',
-    'edit' => 'category.edit',
-    'destroy' => 'category.delete',
-    'store' => 'category.store',
-    'update' => 'category.update'
+        'index' => 'category.index',
+        'create' => 'category.create',
+        'show' => 'category.show',
+        'edit' => 'category.edit',
+        'destroy' => 'category.delete',
+        'store' => 'category.store',
+        'update' => 'category.update'
     ]);
     Route::resource('elements', ElementController::class)->names([
         'index' => 'element.index',
@@ -72,5 +72,14 @@ Route::prefix('admin')->group(function () {
         'destroy' => 'element.delete',
         'store' => 'element.store',
         'update' => 'element.update'
-        ]);
+    ]);
+    Route::resource('users', UserController::class)->names([
+        'index' => 'user.index',
+        'create' => 'user.create',
+        'show' => 'user.show',
+        'edit' => 'user.edit',
+        'destroy' => 'user.delete',
+        'store' => 'user.store',
+        'update' => 'user.update'
+    ]);
 });

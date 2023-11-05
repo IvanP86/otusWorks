@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Role;
+use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use App\Models\Category;
-use App\Http\Requests\Category\StoreRequest;
-use App\Http\Requests\Category\UpdateRequest;
+use App\Http\Requests\User\StoreRequest;
+use App\Http\Requests\User\UpdateRequest;
+use Illuminate\Support\Facades\Hash;
 
-class CategoryController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +17,8 @@ class CategoryController extends Controller
     public function index()
     {
         $this->authorize('anyManagerAndAdmin', auth()->user());
-        $categories = Category::all();
-        return view('category.index', compact('categories'));
+        $users = User::all();
+        return view('admin.user.index', compact('users'));
     }
 
     /**
@@ -26,8 +27,8 @@ class CategoryController extends Controller
     public function create()
     {
         $this->authorize('anyManagerAndAdmin', auth()->user());
-        $categories = Category::all();
-        return view('category.create', compact('categories'));
+        $roles = Role::all();
+        return view('admin.user.create', compact('roles'));
     }
 
     /**
@@ -37,8 +38,9 @@ class CategoryController extends Controller
     {
         $this->authorize('anyManagerAndAdmin', auth()->user());
         $data = $request->validated();
-        Category::create($data);
-        return redirect()->route('category.index');
+        $data['password'] = Hash::make($data['password']);
+        User::create($data);
+        return redirect()->route('user.index');
     }
 
     /**
@@ -47,8 +49,8 @@ class CategoryController extends Controller
     public function show(string $id)
     {
         $this->authorize('anyManagerAndAdmin', auth()->user());
-        $category = Category::findOrFail($id);
-        return view('category.show', compact('category'));
+        $user = User::findOrFail($id);
+        return view('admin.user.show', compact('user'));
     }
 
     /**
@@ -57,9 +59,9 @@ class CategoryController extends Controller
     public function edit(string $id)
     {
         $this->authorize('anyManagerAndAdmin', auth()->user());
-        $category = Category::findOrFail($id);
-        $categories = Category::all();
-        return view('category.edit', compact('categories', 'category'));
+        $user = User::findOrFail($id);
+        $roles = Role::all();
+        return view('admin.user.edit', compact('roles', 'user'));
     }
 
     /**
@@ -69,9 +71,12 @@ class CategoryController extends Controller
     {
         $this->authorize('anyManagerAndAdmin', auth()->user());
         $data = $request->validated();
-        $category = Category::findOrFail($id);
-        $category->update($data);
-        return view('category.show', compact('category'));
+        if ($data['password'] != User::find($id)->password) {
+            $data['password'] = Hash::make($data['password']);
+        }
+        $user = User::findOrFail($id);
+        $user->update($data);
+        return view('admin.user.show', compact('user'));
     }
 
     /**
@@ -79,8 +84,9 @@ class CategoryController extends Controller
      */
     public function destroy(string $id)
     {
-        $this->authorize('anyManagerAndAdmin', auth()->user());
-        Category::find($id)->delete();
-        return redirect()->route('category.index');
+        $user = User::find($id);
+        $this->authorize('delete', $user);
+        $user->delete();
+        return redirect()->route('user.index');
     }
 }

@@ -5,18 +5,26 @@
         <!-- Small boxes (Stat box) -->
         <div class="row">
           <div class="col-6">
-            Категории
+            Товар
             <div class="card-body table-responsive p-0">
                 <table class="table table-hover text-nowrap">
                   <tbody>
                     <tr>
                       <td>ID</td>
-                      <td>{{ $category->id }}</td>
+                      <td>{{ $user->id }}</td>
                     </tr>
                     <tr>
-                      <td>Название</td>
-                      <td>{{ $category->name }}</td>
-                    </tr>                    
+                      <td>Имя</td>
+                      <td>{{ $user->name }}</td>
+                    </tr>
+                    <tr>
+                      <td>Электронный адрес</td>
+                      <td>{{ $user->email }}</td>
+                    </tr>
+                    <tr>
+                      <td>Права</td>
+                      <td>{{ $user->role->title }}</td>
+                    </tr>
                   </tbody>
                 </table>
               </div>    

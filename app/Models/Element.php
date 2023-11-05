@@ -6,19 +6,23 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Category;
 use App\Models\Order;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Element extends Model
 {
     use HasFactory;
+    use SoftDeletes;
+
     protected $guarded = false;
 
     public function category()
     {
-        return $this->belongsTo(Category::class, 'category_id');
+        return $this->belongsTo(Category::class);
     }
 
-    public function orders()
+    public function orders(): BelongsToMany
     {
-        return $this->belongsToMany(Order::class, 'order_elements', 'order_id', 'element_id' );
+        return $this->belongsToMany(Order::class, 'element_order', 'element_id', 'order_id');
     }
 }

@@ -1,7 +1,6 @@
-@extends('layouts.main')
+@extends('layouts.admin.main')
 @section('content')
 <div class="container">
-	<!-- <div class="table-responsive"> -->
 		<table class="table">
 		  <thead>
 		    <tr>

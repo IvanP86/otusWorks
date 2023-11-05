@@ -14,12 +14,13 @@ return new class extends Migration
         Schema::create('elements', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->decimal('price', 8, 2);
+            $table->integer('price');
             $table->string('article');
             $table->text('description')->nullable();
             $table->string('brand')->nullable();
             $table->integer('volume')->nullable();
-            $table->foreignId('category_id')->references('id')->on('categories');
+            $table->foreignId('category_id')->references('id')->on('categories')->onDelete('cascade');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -24,27 +24,15 @@
 		    </tr>
 		  </thead>
 		  <tbody>
+@foreach($elements as $element)
 		    <tr>
-		      <th scope="row">1</th>
-		      <td>111</td>
-		      <td>Товар1</td>
-		      <td>100</td>
+		      <th scope="row">{{ $element->id }}</th>
+		      <td>{{ $element->article }}</td>
+		      <td><a href="{{ route('show', $element->id) }}"/> {{ $element->title }} </td>
+		      <td>{{ $element->price }}</td>
 		      <td><a type="button" href="#" class="btn btn-primary">В корзину</a></td>
 		    </tr>
-		    <tr>
-		      <th scope="row">2</th>
-		      <td>222</td>
-		      <td>Товар2</td>
-		      <td>100</td>
-		      <td><a type="button" href="#" class="btn btn-primary">В корзину</a></td>
-		    </tr>
-		    <tr>
-		      <th scope="row">3</th>
-		      <td>333</td>
-		      <td>Товар3</td>
-		      <td>100</td>
-		      <td><a type="button" href="#" class="btn btn-primary">В корзину</a></td>
-		    </tr>
+@endforeach
 		  </tbody>
 		</table>
 	</div>

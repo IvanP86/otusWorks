@@ -15,6 +15,7 @@ class ElementController extends Controller
      */
     public function index()
     {
+        $this->authorize('anyManagerAndAdmin', auth()->user());
         $elements = Element::all();
         return view('element.index', compact('elements'));
     }
@@ -24,6 +25,7 @@ class ElementController extends Controller
      */
     public function create()
     {
+        $this->authorize('anyManagerAndAdmin', auth()->user());
         $categories = Category::all();
         return view('element.create', compact('categories'));
     }
@@ -33,6 +35,7 @@ class ElementController extends Controller
      */
     public function store(StoreRequest $request)
     {
+        $this->authorize('anyManagerAndAdmin', auth()->user());
         $data = $request->validated();
         Element::create($data);
         return redirect()->route('element.index');
@@ -43,6 +46,7 @@ class ElementController extends Controller
      */
     public function show(string $id)
     {
+        $this->authorize('anyManagerAndAdmin', auth()->user());
         $element = Element::findOrFail($id);
         return view('element.show', compact('element'));
     }
@@ -52,6 +56,7 @@ class ElementController extends Controller
      */
     public function edit(string $id)
     {
+        $this->authorize('anyManagerAndAdmin', auth()->user());
         $element = Element::findOrFail($id);
         $categories = Category::all();
         return view('element.edit', compact('categories', 'element'));
@@ -62,6 +67,7 @@ class ElementController extends Controller
      */
     public function update(UpdateRequest $request, string $id)
     {
+        $this->authorize('anyManagerAndAdmin', auth()->user());
         $data = $request->validated();
         $element = Element::findOrFail($id);
         $element->update($data);
@@ -73,6 +79,7 @@ class ElementController extends Controller
      */
     public function destroy(string $id)
     {
+        $this->authorize('anyManagerAndAdmin', auth()->user());
         Element::find($id)->delete();
         return redirect()->route('element.index');
     }

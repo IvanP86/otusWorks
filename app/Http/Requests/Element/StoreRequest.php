@@ -27,7 +27,7 @@ class StoreRequest extends FormRequest
             'brand' => 'required|string',
             'volume' => 'required|integer',
             'description' => 'string',
-            'price' => 'required|decimal:2',
+            'price' => 'required|integer',
             'category_id' => 'required|integer'
         ];
     }

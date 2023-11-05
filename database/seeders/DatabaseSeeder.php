@@ -40,11 +40,19 @@ class DatabaseSeeder extends Seeder
                  'created_at'=>date('Y-m-d H:i:s'),
                  'updated_at'=>date('Y-m-d H:i:s')],
                 ]);
+             
         \App\Models\User::factory(10)->create();
         \App\Models\Element::factory(30)->create();
         \App\Models\Order::factory(30)->create();
-        \App\Models\OrderElement::factory(10)->create();
+        \App\Models\ElementOrder::factory(10)->create();
+        \App\Models\User::factory()->create([
+            'name' => 'Admin',
+            'email' => 'admin@admin',
+            'email_verified_at' => now(),
+            'password' => '12345678',
+            'role_id' => 1,
 
+        ]);
 
         // \App\Models\Category::factory(5)->create();
         // \App\Models\User::factory()->create([
