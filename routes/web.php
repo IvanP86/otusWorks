@@ -83,3 +83,9 @@ Route::prefix('admin')->group(function () {
         'update' => 'user.update'
     ]);
 });
+
+Route::get('/bot', function () {
+    $textMessage = "Тестовое сообщение";
+    Illuminate\Support\Facades\Log::info($textMessage);
+    return "ok";
+});
