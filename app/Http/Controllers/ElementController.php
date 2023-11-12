@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Element;
 use App\Models\Category;
-use App\Http\Requests\Element\StoreRequest;
-use App\Http\Requests\Element\UpdateRequest; 
+use App\Http\Requests\Element\StoreElementRequest;
+use App\Http\Requests\Element\UpdateElementRequest; 
 
 class ElementController extends Controller
 {
@@ -33,7 +33,7 @@ class ElementController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreRequest $request)
+    public function store(StoreElementRequest $request)
     {
         $this->authorize('anyManagerAndAdmin', auth()->user());
         $data = $request->validated();
@@ -65,7 +65,7 @@ class ElementController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateRequest $request, string $id)
+    public function update(UpdateElementRequest $request, string $id)
     {
         $this->authorize('anyManagerAndAdmin', auth()->user());
         $data = $request->validated();
@@ -80,7 +80,7 @@ class ElementController extends Controller
     public function destroy(string $id)
     {
         $this->authorize('anyManagerAndAdmin', auth()->user());
-        Element::find($id)->delete();
+        Element::findOrFail($id)->delete();
         return redirect()->route('element.index');
     }
 }

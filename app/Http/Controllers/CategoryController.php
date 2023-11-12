@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Category;
-use App\Http\Requests\Category\StoreRequest;
-use App\Http\Requests\Category\UpdateRequest;
+use App\Http\Requests\Category\StoreCategoryRequest;
+use App\Http\Requests\Category\UpdateCategoryRequest;
 
 class CategoryController extends Controller
 {
@@ -33,7 +33,7 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreRequest $request)
+    public function store(StoreCategoryRequest $request)
     {
         $this->authorize('anyManagerAndAdmin', auth()->user());
         $data = $request->validated();
@@ -57,15 +57,15 @@ class CategoryController extends Controller
     public function edit(string $id)
     {
         $this->authorize('anyManagerAndAdmin', auth()->user());
-        $category = Category::findOrFail($id);
         $categories = Category::all();
+        $category = $categories->where('id', $id)->first();
         return view('category.edit', compact('categories', 'category'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateRequest $request, string $id)
+    public function update(UpdateCategoryRequest $request, string $id)
     {
         $this->authorize('anyManagerAndAdmin', auth()->user());
         $data = $request->validated();
@@ -80,7 +80,7 @@ class CategoryController extends Controller
     public function destroy(string $id)
     {
         $this->authorize('anyManagerAndAdmin', auth()->user());
-        Category::find($id)->delete();
+        Category::findOrFail($id)->delete();
         return redirect()->route('category.index');
     }
 }

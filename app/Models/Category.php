@@ -13,7 +13,7 @@ class Category extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $guarded = false;
+    protected $guarded = [];
 
     function elements(): HasMany
     {

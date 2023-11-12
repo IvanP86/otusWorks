@@ -14,7 +14,7 @@ class Element extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $guarded = false;
+    protected $guarded = [];
 
     public function category()
     {

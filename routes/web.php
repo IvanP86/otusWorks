@@ -4,6 +4,7 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ElementController;
+use Illuminate\Support\Facades\App;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,7 +16,7 @@ use App\Http\Controllers\ElementController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
+// Route::prefix('{country}/')->group(function () {
 Route::get('/', 'App\Http\Controllers\IndexElementsController')->name('index');
 Route::get('/elements/{element}', 'App\Http\Controllers\ShowElementsController')->name('show');
 
@@ -89,3 +90,8 @@ Route::get('/bot', function () {
     Illuminate\Support\Facades\Log::info($textMessage);
     return "ok";
 });
+
+Route::get('{country}/login',  function () {
+    // print_r(app()->getLocale());
+    return view('auth.login');
+})->middleware('country');

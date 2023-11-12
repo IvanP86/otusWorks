@@ -20,9 +20,9 @@
                 <label>Выберите категорию</label>
                     <select name="parent_id" class="form-control">
                     @foreach($categories as $loopCategory)
-                      <option value="{{ $category->id }}"
+                      <option value="{{ $loopCategory->id }}"
                       {{ $category->parent_id == $loopCategory->id ? ' selected' : '' }}
-                      >{{ $loopCategory->name }}</option>
+                      >{{ $loopCategory->id }}</option>
                     @endforeach
                     </select>
                     @error('parent_id')
