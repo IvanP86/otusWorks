@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Element;
 use App\Models\Category;
 use App\Http\Requests\Element\StoreElementRequest;

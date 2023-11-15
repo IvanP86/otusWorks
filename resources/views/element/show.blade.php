@@ -34,6 +34,10 @@
                       <td>{{ $element->description }}</td>
                     </tr>
                     <tr>
+                      <td>Количество</td>
+                      <td>{{ $element->count }}</td>
+                    </tr> 
+                    <tr>
                       <td>Цена</td>
                       <td>{{ $element->price }}</td>
                     </tr>                                                             

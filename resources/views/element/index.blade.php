@@ -9,6 +9,7 @@
 		      <th scope="col">Артикул</th>
 			  <th scope="col">Бренд</th>
 			  <th scope="col">Объем</th>
+			  <th scope="col">Количество</th>
 			  <th scope="col">Цена</th>
               <th colspan="3" class="text-center">Действия</th>		      
 		    </tr>
@@ -21,6 +22,7 @@
 		      <td>{{ $element->article }}</td>
 			  <td>{{ $element->brand }}</td>
 			  <td>{{ $element->volume }}</td>
+			  <td>{{ $element->count }}</td>
 			  <td>{{ $element->price }}</td>
               <td class="text-center"><a href="{{ route('element.show', $element->id) }}"><i class="bi bi-eye"></i>Открыть</a></td>
               <td class="text-center"><a href="{{ route('element.edit', $element->id) }}" class="text-success"></i>Редактировать</a></td>

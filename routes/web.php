@@ -1,10 +1,11 @@
 <?php
 
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\HomeController;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ElementController;
-use Illuminate\Support\Facades\App;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,7 +30,7 @@ Route::get('/static', function () {
 });
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::get('/role/{role}', function (\App\Models\Role $role) {
     $users = $role->users;
@@ -83,6 +84,7 @@ Route::prefix('admin')->group(function () {
         'store' => 'user.store',
         'update' => 'user.update'
     ]);
+    Route::get('nocache/users', [UserController::class, 'indexNoCache']);
 });
 
 Route::get('/bot', function () {
@@ -92,6 +94,5 @@ Route::get('/bot', function () {
 });
 
 Route::get('{country}/login',  function () {
-    // print_r(app()->getLocale());
     return view('auth.login');
 })->middleware('country');

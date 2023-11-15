@@ -4,6 +4,7 @@ namespace App\Observers;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Cache;
 
 class UserObserver
 {
@@ -13,6 +14,7 @@ class UserObserver
     public function created(User $user): void
     {
         Log::info("Создан новый пользователь id = " . $user->id);
+        Cache::store('memcached')->forget('userKeys');
     }
     public function updating(User $user): void
     {
@@ -24,6 +26,8 @@ class UserObserver
     public function updated(User $user): void
     {
         Log::info("Изменен пользователь " . $user);
+        Cache::store('memcached')->forget($user->id);
+        Cache::store('memcached')->put($user->id, $user, now()->addMinutes(100));
     }
 
     /**
@@ -32,6 +36,7 @@ class UserObserver
     public function deleted(User $user): void
     {
         Log::alert("Удален пользователь id = " . $user->id);
+        Cache::store('memcached')->forget('userKeys');
     }
 
     /**

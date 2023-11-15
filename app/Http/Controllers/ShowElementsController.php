@@ -13,7 +13,6 @@ class ShowElementsController extends Controller
     public function __invoke(string $id)
     {
         $element = Element::findOrFail($id);
-        // dd($element);
         return view('show', compact('element'));
     }
 }

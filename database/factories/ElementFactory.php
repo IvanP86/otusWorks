@@ -19,6 +19,7 @@ class ElementFactory extends Factory
     {
         return [
             'title' => fake()->sentence,
+            'count' => fake()->numberBetween(1, 100),
             'price' => fake()->numberBetween(1500, 10000),
             'article' => fake()->numberBetween(1, 100000),
             'description' => fake()->paragraph(),

@@ -4,20 +4,40 @@ namespace App\Http\Controllers;
 
 use App\Models\Role;
 use App\Models\User;
-use Illuminate\Http\Request;
+use App\Traits\CacheUser;
 use App\Http\Requests\User\StoreUserRequest;
 use App\Http\Requests\User\UpdateUserRequest;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+    use CacheUser;
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
+        $start = microtime(true);
+        $this->authorize('anyManagerAndAdmin', auth()->user());
+        if (Cache::store('memcached')->has('userKeys')) {
+            $users = $this->returnCacheUsersArray();
+        } else {
+            $users = User::all();
+            $this->createCacheUsers($users);
+        }
+        $time = microtime(true) - $start;
+        print_r($time);
+        return view('admin.user.index', compact('users'));
+    }
+
+    public function indexNoCache()
+    {
+        $start = microtime(true);
         $this->authorize('anyManagerAndAdmin', auth()->user());
         $users = User::all();
+        $time = microtime(true) - $start;
+        print_r($time);
         return view('admin.user.index', compact('users'));
     }
 
@@ -49,7 +69,11 @@ class UserController extends Controller
     public function show(string $id)
     {
         $this->authorize('anyManagerAndAdmin', auth()->user());
-        $user = User::findOrFail($id);
+        if (Cache::has($id)) {
+            $user = Cache::get($id);
+        } else {
+            $user = User::findOrFail($id);
+        }
         return view('admin.user.show', compact('user'));
     }
 

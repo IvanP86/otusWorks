@@ -41,7 +41,7 @@ class DatabaseSeeder extends Seeder
                  'updated_at'=>date('Y-m-d H:i:s')],
                 ]);
              
-        \App\Models\User::factory(10)->create();
+        \App\Models\User::factory(50)->create();
         \App\Models\Element::factory(30)->create();
         \App\Models\Order::factory(30)->create();
         \App\Models\ElementOrder::factory(10)->create();

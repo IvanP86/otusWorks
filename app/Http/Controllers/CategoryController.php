@@ -2,21 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use App\Traits\CacheCategories;
+use Illuminate\Support\Facades\Cache;
 use App\Models\Category;
 use App\Http\Requests\Category\StoreCategoryRequest;
 use App\Http\Requests\Category\UpdateCategoryRequest;
 
 class CategoryController extends Controller
 {
+    use CacheCategories;
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
         $this->authorize('anyManagerAndAdmin', auth()->user());
-        $categories = Category::all();
+        $categories = $this->createAndReturnCacheCategories(Category::all());
         return view('category.index', compact('categories'));
     }
 

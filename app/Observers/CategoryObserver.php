@@ -4,6 +4,7 @@ namespace App\Observers;
 
 use App\Models\Category;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Cache;
 
 class CategoryObserver
 {
@@ -13,6 +14,7 @@ class CategoryObserver
     public function created(Category $category): void
     {
         Log::info("Создана новая категория id = " . $category->id);
+        Cache::store('memcached')->forget('categories');
     }
 
     /**
@@ -21,6 +23,7 @@ class CategoryObserver
     public function updated(Category $category): void
     {
         Log::info("Изменена категория id = " . $category->id);
+        Cache::store('memcached')->forget('categories');
     }
 
     /**
@@ -29,6 +32,7 @@ class CategoryObserver
     public function deleted(Category $category): void
     {
         Log::alert("Удалена категория id = " . $category->id);
+        Cache::store('memcached')->forget('categories');
     }
 
     /**

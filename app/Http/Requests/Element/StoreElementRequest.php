@@ -27,6 +27,7 @@ class StoreElementRequest extends FormRequest
             'brand' => 'required|string',
             'volume' => 'required|integer',
             'description' => 'string',
+            'count' => 'required|integer',
             'price' => 'required|integer',
             'category_id' => 'required|integer'
         ];
