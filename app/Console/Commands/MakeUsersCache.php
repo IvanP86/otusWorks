@@ -2,19 +2,22 @@
 
 namespace App\Console\Commands;
 
-use App\Traits\CacheUser;
 use Illuminate\Console\Command;
 use App\Models\User;
+use App\Services\CacheUserService;
 
 class MakeUsersCache extends Command
 {
-    use CacheUser;
+    public function __construct(public readonly CacheUserService $cacheUserService)
+    {
+        parent::__construct();
+    }
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'makeUsersCache';
+    protected $signature = 'app:cache:make';
 
     /**
      * The console command description.
@@ -28,7 +31,7 @@ class MakeUsersCache extends Command
      */
     public function handle()
     {
-        $this->createCacheUsers(User::all());
+        $this->cacheUserService->createCacheUsers(User::all());
         $this->line('Создан кеш userKeys и кеш по отдельным пользователям');
     }
 }

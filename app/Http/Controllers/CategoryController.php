@@ -2,22 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Traits\CacheCategories;
-use Illuminate\Support\Facades\Cache;
 use App\Models\Category;
 use App\Http\Requests\Category\StoreCategoryRequest;
 use App\Http\Requests\Category\UpdateCategoryRequest;
+use App\Services\CacheCategoriesService;
 
 class CategoryController extends Controller
 {
-    use CacheCategories;
+    public function __construct(public readonly CacheCategoriesService $cacheCategoriesService)
+    {
+
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
         $this->authorize('anyManagerAndAdmin', auth()->user());
-        $categories = $this->createAndReturnCacheCategories(Category::all());
+        $categories = $this->cacheCategoriesService->createAndReturnCacheCategories(Category::all());
         return view('category.index', compact('categories'));
     }
 
@@ -37,8 +39,7 @@ class CategoryController extends Controller
     public function store(StoreCategoryRequest $request)
     {
         $this->authorize('anyManagerAndAdmin', auth()->user());
-        $data = $request->validated();
-        Category::create($data);
+        Category::create($request->validated());
         return redirect()->route('category.index');
     }
 
@@ -69,9 +70,8 @@ class CategoryController extends Controller
     public function update(UpdateCategoryRequest $request, string $id)
     {
         $this->authorize('anyManagerAndAdmin', auth()->user());
-        $data = $request->validated();
         $category = Category::findOrFail($id);
-        $category->update($data);
+        $category->update($request->validated());
         return view('category.show', compact('category'));
     }
 

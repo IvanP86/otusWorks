@@ -35,8 +35,7 @@ class ElementController extends Controller
     public function store(StoreElementRequest $request)
     {
         $this->authorize('anyManagerAndAdmin', auth()->user());
-        $data = $request->validated();
-        Element::create($data);
+        Element::create($request->validated());
         return redirect()->route('element.index');
     }
 
@@ -67,9 +66,8 @@ class ElementController extends Controller
     public function update(UpdateElementRequest $request, string $id)
     {
         $this->authorize('anyManagerAndAdmin', auth()->user());
-        $data = $request->validated();
         $element = Element::findOrFail($id);
-        $element->update($data);
+        $element->update($request->validated());
         return view('element.show', compact('element'));
     }
 

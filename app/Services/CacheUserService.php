@@ -1,21 +1,20 @@
 <?php
 
-namespace App\Traits;
+namespace App\Services;
 
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Database\Eloquent\Collection;
 
-trait CacheUser
+class CacheUserService
 {
     public function createCacheUsers(Collection $users)
     {
 
         foreach ($users as $userLoop) {
-            $id = $userLoop->id;
-            $ids[] = $id;
-            Cache::store('memcached')->put($id, $userLoop, now()->addMinutes(100));
+            $ids[] = $userLoop->id;
+            Cache::store('memcached')->put($userLoop->id, $userLoop, env('CACHE_USERS_LiFETIME'));
         }
-        Cache::store('memcached')->put('userKeys', $ids, now()->addMinutes(100));
+        Cache::store('memcached')->put('userKeys', $ids, env('CACHE_USERS_LiFETIME'));
     }
 
     public function returnCacheUsersArray()

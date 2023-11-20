@@ -19,9 +19,9 @@ class CheckCountry
     {
         $country = $request->route()->parameter('country');
         if ($country == 'en') {
-            App::setlocale('en');
+            App::setLocale('en');
         } else {
-            App::setlocale('ru');
+            App::setLocale('ru');
         }
         $request->route()->forgetParameter('country');
 

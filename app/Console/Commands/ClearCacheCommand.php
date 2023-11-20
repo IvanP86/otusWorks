@@ -5,11 +5,6 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Cache;
 
-require __DIR__ . '/../../../vendor/autoload.php';
-if (!class_exists('Memcached')) {
-    include("memcached.php");
-}
-
 class ClearCacheCommand extends Command
 {
 
@@ -18,7 +13,7 @@ class ClearCacheCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'clearC {key}';
+    protected $signature = 'app:cache:clear {key}';
 
     /**
      * The console command description.
@@ -33,7 +28,7 @@ class ClearCacheCommand extends Command
     public function handle()
     {
         $key = $this->argument('key');
-        $this->line('Очищен кеш ' . $key);
         Cache::store('memcached')->forget($key);
+        $this->line('Очищен кеш ' . $key);
     }
 }
