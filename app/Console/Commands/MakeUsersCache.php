@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use App\Models\User;
 use App\Services\CacheUserService;
+use Illuminate\Support\Facades\Cache;
 
 class MakeUsersCache extends Command
 {
@@ -17,7 +18,9 @@ class MakeUsersCache extends Command
      *
      * @var string
      */
-    protected $signature = 'app:cache:make';
+    protected $signature = 'app:cache:make
+                             {users?* : array id\'s users}
+                                {--all : option for all users}';
 
     /**
      * The console command description.
@@ -31,7 +34,20 @@ class MakeUsersCache extends Command
      */
     public function handle()
     {
-        $this->cacheUserService->createCacheUsers(User::all());
-        $this->line('Создан кеш userKeys и кеш по отдельным пользователям');
+        $usersIds = $this->argument('users');
+
+        if ($this->option('all') || count($usersIds) == 0) {
+            $this->cacheUserService->createCacheUsers(User::all());
+            $this->line('Создан кеш userKeys и кеш по отдельным пользователям');
+        } else {
+            foreach ($usersIds as $userId) {
+                $user = User::query()->where('id', $userId)->get();
+                if ($user->isNotEmpty()) {
+                    Cache::store('memcached')->forget($userId);
+                    Cache::store('memcached')->put($userId, $user);
+                    $this->info('Создан кеш для пользователя id' . $userId);
+                }
+            }
+        }
     }
 }

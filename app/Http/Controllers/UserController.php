@@ -15,7 +15,6 @@ class UserController extends Controller
 {
     public function __construct(public readonly CacheUserService $cacheUserService)
     {
-
     }
     /**
      * Display a listing of the resource.

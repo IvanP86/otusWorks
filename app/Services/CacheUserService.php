@@ -27,4 +27,15 @@ class CacheUserService
         }
         return $resultUsers;
     }
+
+    public function deleteAllCacheUsers()
+    {
+        if (Cache::store('memcached')->has('userKeys')) {
+            $userKeys = Cache::store('memcached')->get('userKeys');
+            foreach ($userKeys as $userKey) {
+                Cache::store('memcached')->forget($userKey);
+            }
+            Cache::store('memcached')->forget('userKeys');
+        }
+    }
 }
