@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\ElementController;
+use App\Http\Controllers\Auth\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,8 +20,7 @@ use App\Http\Controllers\Api\ElementController;
 //     return $request->user();
 // });
 
-// Route::prefix('api')->group(function () {
-
+Route::group(['middleware' => 'auth:api'], function () {
     Route::resource('elements', ElementController::class)->except(['create', 'edit'])->names([
         'index' => 'element.index',
         'show' => 'element.show',
@@ -28,5 +28,6 @@ use App\Http\Controllers\Api\ElementController;
         'store' => 'element.store',
         'update' => 'element.update'
     ]);
+});
+Route::post('apilogin', AuthController::class);
 
-// });

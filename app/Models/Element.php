@@ -9,7 +9,7 @@ use App\Models\Order;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Element extends Model
+class Element extends Model 
 {
     use HasFactory;
     use SoftDeletes;
