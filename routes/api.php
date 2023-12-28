@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\ElementController;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\api\OrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,5 +30,13 @@ Route::group(['middleware' => 'auth:api'], function () {
         'update' => 'element.update'
     ]);
 });
+
+Route::resource('orders', OrderController::class)->except(['create', 'edit'])->names([
+    'index' => 'order.index',
+    'show' => 'order.show',
+    'destroy' => 'order.delete',
+    'store' => 'order.store',
+    'update' => 'order.update'
+]);
 Route::post('apilogin', AuthController::class);
 
