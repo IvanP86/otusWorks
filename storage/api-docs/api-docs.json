@@ -1,0 +1,337 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "My documentation API",
+        "version": "1.0"
+    },
+    "paths": {
+        "/api/": {},
+        "/api/orders": {
+            "get": {
+                "tags": [
+                    "Order"
+                ],
+                "summary": "orders",
+                "operationId": "811d49628c41873d0a2c1fcbf65067cf",
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "order": {
+                                                        "type": "integer",
+                                                        "example": "1"
+                                                    },
+                                                    "elements": {
+                                                        "type": "array",
+                                                        "items": {
+                                                            "properties": {
+                                                                "article": {
+                                                                    "type": "string",
+                                                                    "example": "85055"
+                                                                },
+                                                                "count": {
+                                                                    "type": "integer",
+                                                                    "example": "2"
+                                                                },
+                                                                "price": {
+                                                                    "type": "integer",
+                                                                    "example": "11000"
+                                                                }
+                                                            },
+                                                            "type": "object"
+                                                        }
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Order"
+                ],
+                "summary": "create",
+                "operationId": "4f60117ed5e301574db6b50e09775d99",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "properties": {
+                                            "user_id": {
+                                                "type": "integer",
+                                                "example": 1
+                                            },
+                                            "elements": {
+                                                "type": "array",
+                                                "items": {
+                                                    "properties": {
+                                                        "article": {
+                                                            "type": "string",
+                                                            "example": "85055"
+                                                        },
+                                                        "count": {
+                                                            "type": "integer",
+                                                            "example": "2"
+                                                        },
+                                                        "price": {
+                                                            "type": "integer",
+                                                            "example": "11000"
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                }
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": 79
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/orders/{order}": {
+            "get": {
+                "tags": [
+                    "Order"
+                ],
+                "summary": "order",
+                "operationId": "02d7e71fd406691fa42110d18288ab29",
+                "parameters": [
+                    {
+                        "name": "order",
+                        "in": "path",
+                        "description": "Order Id",
+                        "required": true,
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "elements": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "article": {
+                                                        "type": "string",
+                                                        "example": "85055"
+                                                    },
+                                                    "count": {
+                                                        "type": "integer",
+                                                        "example": "2"
+                                                    },
+                                                    "price": {
+                                                        "type": "integer",
+                                                        "example": "11000"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Order"
+                ],
+                "summary": "delete order",
+                "operationId": "920682836223777b7d14129cd3404bb9",
+                "parameters": [
+                    {
+                        "name": "order",
+                        "in": "path",
+                        "description": "Order Id",
+                        "required": true,
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "elements": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "article": {
+                                                        "type": "string",
+                                                        "example": "85055"
+                                                    },
+                                                    "count": {
+                                                        "type": "integer",
+                                                        "example": "2"
+                                                    },
+                                                    "price": {
+                                                        "type": "integer",
+                                                        "example": "11000"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "patch": {
+                "tags": [
+                    "Order"
+                ],
+                "summary": "Update order",
+                "operationId": "2662746cfb18911493e15d1f4ff56f92",
+                "parameters": [
+                    {
+                        "name": "order",
+                        "in": "path",
+                        "description": "Order Id",
+                        "required": true,
+                        "example": 1
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "allOf": [
+                                    {
+                                        "properties": {
+                                            "user_id": {
+                                                "type": "integer",
+                                                "example": 1
+                                            },
+                                            "elements": {
+                                                "type": "array",
+                                                "items": {
+                                                    "properties": {
+                                                        "article": {
+                                                            "type": "string",
+                                                            "example": "85055"
+                                                        },
+                                                        "count": {
+                                                            "type": "integer",
+                                                            "example": "2"
+                                                        },
+                                                        "price": {
+                                                            "type": "integer",
+                                                            "example": "11000"
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                }
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "ok"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "scheme": "bearer"
+            }
+        }
+    }
+}

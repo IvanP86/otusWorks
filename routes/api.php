@@ -29,14 +29,15 @@ Route::group(['middleware' => 'auth:api'], function () {
         'store' => 'element.store',
         'update' => 'element.update'
     ]);
+    Route::resource('orders', OrderController::class)->except(['create', 'edit'])->names([
+        'index' => 'order.index',
+        'show' => 'order.show',
+        'destroy' => 'order.delete',
+        'store' => 'order.store',
+        'update' => 'order.update'
+    ]);    
 });
 
-Route::resource('orders', OrderController::class)->except(['create', 'edit'])->names([
-    'index' => 'order.index',
-    'show' => 'order.show',
-    'destroy' => 'order.delete',
-    'store' => 'order.store',
-    'update' => 'order.update'
-]);
+
 Route::post('apilogin', AuthController::class);
 
