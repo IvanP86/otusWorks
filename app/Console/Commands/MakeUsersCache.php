@@ -37,6 +37,7 @@ class MakeUsersCache extends Command
         $usersIds = $this->argument('users');
 
         if ($this->option('all') || count($usersIds) == 0) {
+            $this->cacheUserService->deleteAllCacheUsers();
             $this->cacheUserService->createCacheUsers(User::all());
             $this->line('Создан кеш userKeys и кеш по отдельным пользователям');
         } else {

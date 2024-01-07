@@ -33,7 +33,7 @@ class ClearCacheCommand extends Command
      * Execute the console command.
      */
     public function handle()
-    {
+    {    
         if (!$this->option('email')) {
             $choise = $this->choice('Выберете какой кеш нужно удалить:', ['All users', 'Single user//users', 'Categories', 'All'], 'All');
             switch ($choise) {
