@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\ElementController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\api\OrderController;
+use App\Http\Controllers\Api\UserApiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,9 +36,11 @@ Route::group(['middleware' => 'auth:api'], function () {
         'destroy' => 'order.delete',
         'store' => 'order.store',
         'update' => 'order.update'
-    ]);    
+    ]);
+    Route::get('/me', [UserApiController::class, 'showMe'])->name('showMe');
+    Route::put('/updateMe', [UserApiController::class, 'UpdateMe'])->name('updateMe');
+    Route::get('/myOrders', [UserApiController::class, 'myOrders'])->name('myOrders');
+    Route::delete('/deleteMe', [UserApiController::class, 'deleteMe'])->name('deleteMe');
 });
 
-
 Route::post('apilogin', AuthController::class);
-
