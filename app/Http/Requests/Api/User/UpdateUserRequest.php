@@ -24,7 +24,7 @@ class UpdateUserRequest extends FormRequest
         return [
             'name' => 'string',
             'email' => 'email|unique:users,id',
-            'password' => '',
+            'password' => 'string|min:6',
         ];
     }
 }

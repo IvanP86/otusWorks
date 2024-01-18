@@ -5,12 +5,14 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\User\UpdateUserRequest;
 use App\Http\Resources\User\UserResource;
-use Illuminate\Http\Request;
+use App\Services\ApiUserService;
 use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
-use Illuminate\Support\Facades\Hash;
 
 class UserApiController extends Controller
 {
+    public function __construct(public readonly ApiUserService $apiUserService)
+    {
+    }
     public function showMe()
     {
         $user = JWTAuth::user();
@@ -20,19 +22,17 @@ class UserApiController extends Controller
     {
         $data = $request->validated();
         $user = JWTAuth::user();
-        if (isset($data['password']) && $data['password'] != $user->password) {
-            $data['password'] = Hash::make($data['password']);
-        }
-        $user->update($data);
-        return new UserResource($user);
+        return new UserResource($this->apiUserService->updateApiUser($data, $user));
     }
 
-    public function myOrders(){
+    public function myOrders()
+    {
         $user = JWTAuth::user();
         return response()->json($user->orders);
     }
 
-    public function deleteMe(){
+    public function deleteMe()
+    {
         $user = JWTAuth::user();
         $user->delete();
     }

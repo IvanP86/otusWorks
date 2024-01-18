@@ -38,7 +38,7 @@ Route::group(['middleware' => 'auth:api'], function () {
         'update' => 'order.update'
     ]);
     Route::get('/me', [UserApiController::class, 'showMe'])->name('showMe');
-    Route::put('/updateMe', [UserApiController::class, 'UpdateMe'])->name('updateMe');
+    Route::put('/me', [UserApiController::class, 'UpdateMe'])->name('updateMe');
     Route::get('/myOrders', [UserApiController::class, 'myOrders'])->name('myOrders');
     Route::delete('/deleteMe', [UserApiController::class, 'deleteMe'])->name('deleteMe');
 });

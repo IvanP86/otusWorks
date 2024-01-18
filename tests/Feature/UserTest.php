@@ -21,7 +21,7 @@ class UserTest extends TestCase
         $token = JWTAuth::fromUser($user);
         $response = $this->actingAs($user)->withHeaders([
             'Authorization' => 'Bearer ' . $token,
-        ])->json('GET', env('APP_URL_TEST ') . '/api/me', []);
+        ])->json('GET', route('showMe'), []);
         $response->assertStatus(200);
 
         $response->assertJsonStructure([
@@ -40,7 +40,7 @@ class UserTest extends TestCase
     public function test_get_user_without_login_informations(): void
     {
         $user = User::where('email', 'admin@admin')->first();
-        $response = $this->actingAs($user)->json('GET', env('APP_URL_TEST ') . '/api/me', []);
+        $response = $this->actingAs($user)->json('GET', route('showMe'), []);
         $response->assertStatus(401);
     }
 
@@ -50,11 +50,10 @@ class UserTest extends TestCase
         $token = JWTAuth::fromUser($user);
         $response = $this->actingAs($user)->withHeaders([
             'Authorization' => 'Bearer ' . $token,
-        ])->json('PUT', env('APP_URL_TEST ') . '/api/updateMe', [
-            'name' => 'adminTEST',
-            'password' => '12345678'
+        ])->json('PUT', route('updateMe'), [
+            'name' => 'adminTest',
+            'password' => '1234567'
         ]);
-
         $response->assertStatus(200);
         $newOldUser = User::where('email', 'admin@admin')->first();
         $this->assertEquals($response->json('data')['name'], $newOldUser->name);
@@ -74,7 +73,7 @@ class UserTest extends TestCase
         $order = Order::create(['user_id' => $user->id]);
         $response = $this->actingAs($user)->withHeaders([
             'Authorization' => 'Bearer ' . $token,
-        ])->json('GET', env('APP_URL_TEST ') . '/api/myOrders', []);
+        ])->json('GET', route('myOrders'), []);
         $response->assertStatus(200);
         $response->assertJsonStructure([
             '*' => [
@@ -93,7 +92,7 @@ class UserTest extends TestCase
         $token = JWTAuth::fromUser($user);
         $response = $this->actingAs($user)->withHeaders([
             'Authorization' => 'Bearer ' . $token,
-        ])->json('DELETE', env('APP_URL_TEST ') . '/api/deleteMe', []);
+        ])->json('DELETE', route('deleteMe'), []);
         $response->assertStatus(200);
         $this->assertDatabaseMissing('users', [
             'id' => $user->id,
